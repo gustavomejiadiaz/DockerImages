@@ -9,5 +9,5 @@ def buildExcludePaths = [
   "Documentation/.*",
   "TestPlans/.*",
   ".*\\.docx",
-  ".*\\.css"1
+  ".*\\.css"
 ]
