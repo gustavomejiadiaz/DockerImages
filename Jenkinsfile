@@ -53,7 +53,7 @@ def docker(tag) {
     }
   }
   
-  parallels stepsForParallel
+  parallel stepsForParallels
   
   // enable docker engine on port
   Logger(this).log "Configuring docker engine for tcp://0.0.0.0:2375"
