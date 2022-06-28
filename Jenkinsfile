@@ -29,7 +29,12 @@ def uitestExcludePaths = [
 
 def docker(tag) {
   Logger(this).log "Docker version: $tag"
-
+  
+  // enable docker engine on port
+  Logger(this).log "Configuring docker engine for tcp://0.0.0.0:2375"
+  powershell("""Set-Content -Path "C:\\ProgramData\\docker\\config\\daemon.json" -Value '{ "hosts": ["tcp://0.0.0.0:2375", "npipe://"],"max-concurrent-uploads": 10}'""")
+  powershell("""Restart-Service docker""")
+  
   // enable docker engine on port
   Logger(this).log "Configuring docker engine for tcp://0.0.0.0:2375"
   
