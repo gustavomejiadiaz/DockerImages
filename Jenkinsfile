@@ -42,6 +42,17 @@ def docker(tag) {
     [dockerfile: it.path, path: it.path.split("\\\\")[0..-2].join("\\"), name: it.path.split("\\\\")[1..-2][0].replace(".", "-").toLowerCase() ]
   }
   
+  def stepsForParallel = [:]
+  def rmiCommandParameters = " ";
+  dockerfiles.each { docker -> 
+    rmiCommandParameters += " ${vars.dockerRegistry}/open/${docker.name}:${tag}"
+    stepsForParallel[docker.name] = { ->
+      dir(docker.path) {
+        Logger(this).info "DOCKER: Building docker open/${docker.name}"
+      }
+    }
+  }
+  
   
   // enable docker engine on port
   Logger(this).log "Configuring docker engine for tcp://0.0.0.0:2375"
