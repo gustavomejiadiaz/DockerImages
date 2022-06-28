@@ -1,12 +1,7 @@
-pipeline {
-    agent {
-        docker { image 'node:16.13.1-alpine' }
-    }
-    stages {
-        stage('Test') {
-            steps {
-                sh 'node --version'
-            }
-        }
-    }
-}
+#!groovy
+env.SHARED_LIB_VERSION='ci-cd-shared@develop'
+library env.SHARED_LIB_VERSION 
+
+import hudson.tasks.test.AbstractTestResultAction
+import groovy.json.JsonSlurper
+
